@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello Adonis</title>
+  {{--  {{ style('style') }}  --}}
+</head>
+<body>
+  <h1>{{ title }}</h1>
+  @if(old('message'))
+      <h6>{{ old('message') }}</h6>
+  @endif
+  <form method="post" action="/users/add">
+    {{ csrfField ()}}
+    {{ elIf ('$self', getErrorFor('firstName'), hasErrorFor('firstName')) }}<br>
+    <input type="text" name="firstName" value="{{ old('firstName','')}}"> <br>
+     {{ elIf ('$self', getErrorFor('lastName'), hasErrorFor('lastName'))}}<br>
+    <input type="text" name="lastName"  value="{{ old('lastName','')}}"> 
+    <input type="submit" name="btnAdd">
+  </form>
+  <table>
+      <tr>
+        <th></th>
+        <th>FullName</th>
+        <th>Action</th>
+      <tr>
+      @each(post in posts)
+      <tr>
+        <td> {{ post.id }}</td>
+        <td>{{ post.firstname}} {{ post.lastname}}</td>
+        <td><a href="/users/edit/{{post.id}}">Edit</a></td>
+      <tr>
+      @endeach
+  </table>
+</body>
+</html>
